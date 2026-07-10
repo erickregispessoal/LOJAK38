@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuditSort 38 - Gestão de Auditoria de Sortimento</title>
+    <title>AuditSort 38 - GestÃ£o de Auditoria de Sortimento</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -15,12 +15,12 @@
             <div class="logo-icon">38</div>
         </div>
         <h2>AuditSort 38</h2>
-        <p class="login-subtitle">Gestão de Auditoria de Sortimento</p>
+        <p class="login-subtitle">GestÃ£o de Auditoria de Sortimento</p>
         
         <form id="login-form" onsubmit="return false;">
             <div class="input-group">
-                <label><span class="icon" data-icon="user"></span> Usuário</label>
-                <input type="text" id="login-usuario" placeholder="Digite seu usuário" required>
+                <label><span class="icon" data-icon="user"></span> UsuÃ¡rio</label>
+                <input type="text" id="login-usuario" placeholder="Digite seu usuÃ¡rio" required>
             </div>
             
             <div class="input-group">
@@ -33,7 +33,7 @@
             </button>
         </form>
         
-        <p id="login-erro" class="login-erro hidden">Usuário ou senha inválidos!</p>
+        <p id="login-erro" class="login-erro hidden">UsuÃ¡rio ou senha invÃ¡lidos!</p>
         <p class="login-info">Loja 38 Supermercado</p>
     </div>
 </div>
@@ -50,11 +50,11 @@
                 <button onclick="navigate('home')" class="active" id="btn-home"><span class="icon" data-icon="home"></span> Home</button>
                 <button onclick="navigate('nova-auditoria')" id="btn-nova-auditoria"><span class="icon" data-icon="edit"></span> Nova Auditoria</button>
                 <button onclick="navigate('dashboard')" id="btn-dashboard"><span class="icon" data-icon="barChart"></span> Dashboard</button>
-                <button onclick="navigate('analises')" id="btn-analises"><span class="icon" data-icon="activity"></span> Análises Inteligentes</button>
-                <button onclick="navigate('calendario-view')" id="btn-calendario-view"><span class="icon" data-icon="calendar"></span> Calendário</button>
-                <button onclick="navigate('historico')" id="btn-historico"><span class="icon" data-icon="list"></span> Histórico</button>
-                <button onclick="navigate('relatorio-divisoes')" id="btn-relatorio-divisoes"><span class="icon" data-icon="printer"></span> Relatório de Divisões</button>
-                <button onclick="navigate('configuracoes')" id="btn-configuracoes"><span class="icon" data-icon="settings"></span> Configurações</button>
+                <button onclick="navigate('analises')" id="btn-analises"><span class="icon" data-icon="activity"></span> AnÃ¡lises Inteligentes</button>
+                <button onclick="navigate('calendario-view')" id="btn-calendario-view"><span class="icon" data-icon="calendar"></span> CalendÃ¡rio</button>
+                <button onclick="navigate('historico')" id="btn-historico"><span class="icon" data-icon="list"></span> HistÃ³rico</button>
+                <button onclick="navigate('relatorio-divisoes')" id="btn-relatorio-divisoes"><span class="icon" data-icon="printer"></span> RelatÃ³rio de DivisÃµes</button>
+                <button onclick="navigate('configuracoes')" id="btn-configuracoes"><span class="icon" data-icon="settings"></span> ConfiguraÃ§Ãµes</button>
             </nav>
             <div class="sidebar-footer">
                 <button onclick="toggleDarkMode()" id="btn-theme-toggle"><span class="icon" data-icon="moon"></span> Modo Escuro</button>
@@ -77,17 +77,17 @@
 
             <section id="home" class="page-section active">
                 <div class="welcome-card">
-                    <h3 id="greeting">Olá!</h3>
+                    <h3 id="greeting">OlÃ¡!</h3>
                     <p>Bem-vindo ao AuditSort 38. Acompanhe os indicadores macro de conformidade de sortimento da Loja 38.</p>
                 </div>
                 
                 <div class="kpi-grid">
                     <div class="kpi-card">
-                        <span>Conformidade do Mês</span>
+                        <span>Conformidade do MÃªs</span>
                         <h2 id="home-conformidade">0%</h2>
                     </div>
                     <div class="kpi-card red">
-                        <span>Ruptura do Mês</span>
+                        <span>Ruptura do MÃªs</span>
                         <h2 id="home-ruptura">0%</h2>
                     </div>
                     <div class="kpi-card green">
@@ -102,25 +102,25 @@
 
                 <div class="home-layout">
                     <div class="card chart-box">
-                        <h3>Evolução da Conformidade Diária</h3>
+                        <h3>EvoluÃ§Ã£o da Conformidade DiÃ¡ria</h3>
                         <div class="canvas-container-home">
                             <canvas id="chartHomeEvolucao"></canvas>
                         </div>
                     </div>
                     <div class="card recent-box">
-                        <h3>Última Auditoria Realizada</h3>
+                        <h3>Ãšltima Auditoria Realizada</h3>
                         <div id="home-ultima-auditoria" class="recent-audit-details">
-                            <p class="text-muted">Nenhuma auditoria registrada até o momento.</p>
+                            <p class="text-muted">Nenhuma auditoria registrada atÃ© o momento.</p>
                         </div>
-                        <button class="btn-primary btn-block mt-20" onclick="navigate('nova-auditoria')"><span class="icon" data-icon="plusCircle"></span> Lançar Nova Auditoria</button>
+                        <button class="btn-primary btn-block mt-20" onclick="navigate('nova-auditoria')"><span class="icon" data-icon="plusCircle"></span> LanÃ§ar Nova Auditoria</button>
                     </div>
                 </div>
             </section>
 
             <section id="nova-auditoria" class="page-section hidden">
                 <div class="form-container">
-                    <h3>Formulário de Auditoria Consolidada</h3>
-                    <p class="text-muted mb-20">Insira os totais observados no setor e divisão selecionados.</p>
+                    <h3>FormulÃ¡rio de Auditoria Consolidada</h3>
+                    <p class="text-muted mb-20">Insira os totais observados no setor e divisÃ£o selecionados.</p>
                     
                     <form id="audit-form">
                         <div class="form-grid">
@@ -133,7 +133,7 @@
                                 <input type="time" id="form-hora" required>
                             </div>
                             <div class="input-group">
-                                <label>Auditor Responsável</label>
+                                <label>Auditor ResponsÃ¡vel</label>
                                 <select id="form-auditor" required>
                                     </select>
                             </div>
@@ -143,8 +143,8 @@
                                     </select>
                             </div>
                             <div class="input-group">
-                                <label>Divisão (Campo Livre)</label>
-                                <input type="text" id="form-divisao" maxlength="100" placeholder="Ex: Cervejas, Sabão em pó, Iogurtes..." required>
+                                <label>DivisÃ£o (Campo Livre)</label>
+                                <input type="text" id="form-divisao" maxlength="100" placeholder="Ex: Cervejas, SabÃ£o em pÃ³, Iogurtes..." required>
                             </div>
                             <div class="input-group">
                                 <label>Total de Itens Previstos</label>
@@ -155,25 +155,25 @@
                                 <input type="number" id="form-picking" min="0" placeholder="Ex: 60" required oninput="calculateFormMetrics()">
                             </div>
                             <div class="input-group">
-                                <label>Encontrados - Depósito</label>
+                                <label>Encontrados - DepÃ³sito</label>
                                 <input type="number" id="form-deposito" min="0" placeholder="Ex: 50" required oninput="calculateFormMetrics()">
                             </div>
                             <div class="input-group">
-                                <label>Encontrados - Área de Vendas</label>
+                                <label>Encontrados - Ãrea de Vendas</label>
                                 <input type="number" id="form-areavendas" min="0" placeholder="Ex: 35" required oninput="calculateFormMetrics()">
                             </div>
                             <div class="input-group bg-light-card full-width">
                                 <label>Resultado Calculado</label>
                                 <div class="calculated-metrics" id="form-metricas-calculadas">
-                                    Não encontrados: <strong>0</strong><br>
+                                    NÃ£o encontrados: <strong>0</strong><br>
                                     Conformidade: <strong class="text-success">0%</strong> | Ruptura: <strong class="text-danger">0%</strong><br>
-                                    Picking: <strong>0%</strong> | Depósito: <strong>0%</strong> | Área de Vendas: <strong>0%</strong>
+                                    Picking: <strong>0%</strong> | DepÃ³sito: <strong>0%</strong> | Ãrea de Vendas: <strong>0%</strong>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="input-group full-width">
-                            <label>Observações Gerais da Auditoria</label>
+                            <label>ObservaÃ§Ãµes Gerais da Auditoria</label>
                             <textarea id="form-observacao" maxlength="500" rows="3" placeholder="Descreva motivos de falhas gerais, atrasos ou anomalias encontradas..."></textarea>
                         </div>
                         
@@ -190,7 +190,7 @@
                     <h4><span class="icon" data-icon="search"></span> Filtros do Painel</h4>
                     <div class="filters-grid">
                         <div class="input-group">
-                            <label>Filtrar por Mês/Ano</label>
+                            <label>Filtrar por MÃªs/Ano</label>
                             <input type="month" id="filter-mes" onchange="applyFilters()">
                         </div>
                         <div class="input-group">
@@ -200,8 +200,8 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label>Filtrar por Divisão</label>
-                            <input type="text" id="filter-divisao" placeholder="Digitar divisão..." onkeyup="applyFilters()">
+                            <label>Filtrar por DivisÃ£o</label>
+                            <input type="text" id="filter-divisao" placeholder="Digitar divisÃ£o..." onkeyup="applyFilters()">
                         </div>
                         <div class="input-group">
                             <label>Filtrar por Auditor</label>
@@ -214,11 +214,11 @@
 
                 <div class="kpi-grid">
                     <div class="kpi-card">
-                        <span>Conformidade Média</span>
+                        <span>Conformidade MÃ©dia</span>
                         <h2 id="dash-conformidade">0%</h2>
                     </div>
                     <div class="kpi-card red">
-                        <span>Ruptura Média</span>
+                        <span>Ruptura MÃ©dia</span>
                         <h2 id="dash-ruptura">0%</h2>
                     </div>
                     <div class="kpi-card green">
@@ -237,27 +237,27 @@
 
                 <div class="charts-dashboard-grid">
                     <div class="chart-container">
-                        <h3>Evolução Diária da Conformidade (%)</h3>
+                        <h3>EvoluÃ§Ã£o DiÃ¡ria da Conformidade (%)</h3>
                         <canvas id="chartDashEvolucaoConf"></canvas>
                     </div>
                     <div class="chart-container">
-                        <h3>Evolução da Ruptura (%)</h3>
+                        <h3>EvoluÃ§Ã£o da Ruptura (%)</h3>
                         <canvas id="chartDashEvolucaoRup"></canvas>
                     </div>
                     <div class="chart-container">
-                        <h3>Comparação de Conformidade por Setor</h3>
+                        <h3>ComparaÃ§Ã£o de Conformidade por Setor</h3>
                         <canvas id="chartDashSetores"></canvas>
                     </div>
                     <div class="chart-container">
-                        <h3>Desempenho por Divisão (Top N)</h3>
+                        <h3>Desempenho por DivisÃ£o (Top N)</h3>
                         <canvas id="chartDashDivisoes"></canvas>
                     </div>
                     <div class="chart-container">
-                        <h3>Média Consolidada por Mês</h3>
+                        <h3>MÃ©dia Consolidada por MÃªs</h3>
                         <canvas id="chartDashMeses"></canvas>
                     </div>
                     <div class="chart-container">
-                        <h3>Tendência dos Últimos 30 Dias</h3>
+                        <h3>TendÃªncia dos Ãšltimos 30 Dias</h3>
                         <canvas id="chartDashTendencia"></canvas>
                     </div>
                     <div class="chart-container">
@@ -269,8 +269,8 @@
 
             <section id="analises" class="page-section hidden">
                 <div class="card">
-                    <h3><span class="icon" data-icon="lightbulb"></span> Insights e Diagnósticos de Sortimento Automatizados</h3>
-                    <p class="text-muted mb-20">Geração de relatórios com base em inteligência descritiva das auditorias salvas.</p>
+                    <h3><span class="icon" data-icon="lightbulb"></span> Insights e DiagnÃ³sticos de Sortimento Automatizados</h3>
+                    <p class="text-muted mb-20">GeraÃ§Ã£o de relatÃ³rios com base em inteligÃªncia descritiva das auditorias salvas.</p>
                     
                     <div class="insights-container" id="insights-list">
                         </div>
@@ -280,15 +280,15 @@
             <section id="calendario-view" class="page-section hidden">
                 <div class="card">
                     <div class="calendar-header">
-                        <button class="btn-secondary" onclick="changeCalendarMonth(-1)">◀ Anterior</button>
+                        <button class="btn-secondary" onclick="changeCalendarMonth(-1)">â—€ Anterior</button>
                         <h3 id="calendar-month-year">Janeiro de 2026</h3>
-                        <button class="btn-secondary" onclick="changeCalendarMonth(1)">Próximo ▶</button>
+                        <button class="btn-secondary" onclick="changeCalendarMonth(1)">PrÃ³ximo â–¶</button>
                     </div>
                     
                     <div class="calendar-legend">
-                        <span class="legend-item"><span class="dot green"></span> Acima da Meta (≥ 98%)</span>
+                        <span class="legend-item"><span class="dot green"></span> Acima da Meta (â‰¥ 98%)</span>
                         <span class="legend-item"><span class="dot yellow"></span> Alerta (96% - 97.9%)</span>
-                        <span class="legend-item"><span class="dot red"></span> Crítico (&lt; 96%)</span>
+                        <span class="legend-item"><span class="dot red"></span> CrÃ­tico (< 96%)</span>
                     </div>
 
                     <div class="calendar-grid">
@@ -298,7 +298,7 @@
                         <div class="calendar-day-header">Qua</div>
                         <div class="calendar-day-header">Qui</div>
                         <div class="calendar-day-header">Sex</div>
-                        <div class="calendar-day-header">Sáb</div>
+                        <div class="calendar-day-header">SÃ¡b</div>
                     </div>
                     <div class="calendar-days" id="calendar-days-container">
                         </div>
@@ -320,7 +320,7 @@
                 <div class="header-actions">
                     <div class="search-input-wrapper">
                         <span class="icon search-input-icon" data-icon="search"></span>
-                        <input type="text" id="search-history" placeholder="Pesquisar por divisão ou observações..." onkeyup="renderHistoryTable()">
+                        <input type="text" id="search-history" placeholder="Pesquisar por divisÃ£o ou observaÃ§Ãµes..." onkeyup="renderHistoryTable()">
                     </div>
                     <div class="actions-group-buttons">
                         <button class="btn-secondary" onclick="exportToCSV()"><span class="icon" data-icon="barChart"></span> Exportar CSV/Excel</button>
@@ -333,14 +333,14 @@
                             <tr>
                                 <th>Data/Hora</th>
                                 <th>Setor</th>
-                                <th>Divisão</th>
+                                <th>DivisÃ£o</th>
                                 <th>Previstos</th>
                                 <th>Encontrados</th>
-                                <th>Não Encontrados</th>
+                                <th>NÃ£o Encontrados</th>
                                 <th>Conformidade</th>
                                 <th>Ruptura</th>
                                 <th>Auditor</th>
-                                <th>Ações</th>
+                                <th>AÃ§Ãµes</th>
                             </tr>
                         </thead>
                         <tbody id="history-body">
@@ -351,7 +351,7 @@
 
             <section id="relatorio-divisoes" class="page-section hidden">
                 <div class="card mb-20 no-print">
-                    <h4><span class="icon" data-icon="search"></span> Filtros do Relatório</h4>
+                    <h4><span class="icon" data-icon="search"></span> Filtros do RelatÃ³rio</h4>
                     <div class="filters-grid">
                         <div class="input-group">
                             <label>Setor</label>
@@ -360,9 +360,9 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label>Divisão</label>
+                            <label>DivisÃ£o</label>
                             <select id="rel-divisao" onchange="gerarRelatorioDivisao()">
-                                <option value="">Selecione uma Divisão</option>
+                                <option value="">Selecione uma DivisÃ£o</option>
                             </select>
                         </div>
                         <div class="input-group">
@@ -370,7 +370,7 @@
                             <input type="date" id="rel-data-inicio" onchange="gerarRelatorioDivisao()">
                         </div>
                         <div class="input-group">
-                            <label>Até</label>
+                            <label>AtÃ©</label>
                             <input type="date" id="rel-data-fim" onchange="gerarRelatorioDivisao()">
                         </div>
                     </div>
@@ -384,26 +384,26 @@
                     <div class="report-header">
                         <div class="logo-icon">38</div>
                         <div>
-                            <h2>Relatório de Sortimento por Divisão</h2>
-                            <p id="rel-subtitulo" class="text-muted">Selecione uma divisão para gerar o relatório</p>
+                            <h2>RelatÃ³rio de Sortimento por DivisÃ£o</h2>
+                            <p id="rel-subtitulo" class="text-muted">Selecione uma divisÃ£o para gerar o relatÃ³rio</p>
                         </div>
                     </div>
 
                     <div class="kpi-grid" id="rel-kpis">
                         <div class="kpi-card">
-                            <span>Conformidade Média</span>
+                            <span>Conformidade MÃ©dia</span>
                             <h2 id="rel-conformidade">0%</h2>
                         </div>
                         <div class="kpi-card red">
-                            <span>Ruptura Média</span>
+                            <span>Ruptura MÃ©dia</span>
                             <h2 id="rel-ruptura">0%</h2>
                         </div>
                         <div class="kpi-card green">
-                            <span>Auditorias no Período</span>
+                            <span>Auditorias no PerÃ­odo</span>
                             <h2 id="rel-total">0</h2>
                         </div>
                         <div class="kpi-card orange">
-                            <span>Total Não Encontrados</span>
+                            <span>Total NÃ£o Encontrados</span>
                             <h2 id="rel-nao-encontrados">0</h2>
                         </div>
                         <div class="kpi-card">
@@ -411,11 +411,11 @@
                             <h2 id="rel-total-picking">0</h2>
                         </div>
                         <div class="kpi-card">
-                            <span>Total Depósito</span>
+                            <span>Total DepÃ³sito</span>
                             <h2 id="rel-total-deposito">0</h2>
                         </div>
                         <div class="kpi-card">
-                            <span>Total Área de Vendas</span>
+                            <span>Total Ãrea de Vendas</span>
                             <h2 id="rel-total-areavendas">0</h2>
                         </div>
                     </div>
@@ -426,15 +426,15 @@
                                 <tr>
                                     <th>Data</th>
                                     <th>Setor</th>
-                                    <th>Divisão</th>
+                                    <th>DivisÃ£o</th>
                                     <th>Previstos</th>
                                     <th>Picking</th>
-                                    <th>Depósito</th>
-                                    <th>Área de Vendas</th>
-                                    <th>Não Encontrados</th>
+                                    <th>DepÃ³sito</th>
+                                    <th>Ãrea de Vendas</th>
+                                    <th>NÃ£o Encontrados</th>
                                     <th>Conformidade</th>
                                     <th>Ruptura</th>
-                                    <th>Observação</th>
+                                    <th>ObservaÃ§Ã£o</th>
                                 </tr>
                             </thead>
                             <tbody id="relatorio-body">
@@ -466,23 +466,23 @@
                     </div>
 
                     <div class="card">
-                        <h3>Parâmetros Operacionais</h3>
+                        <h3>ParÃ¢metros Operacionais</h3>
                         <div class="input-group">
                             <label>Meta de Conformidade da Loja (%)</label>
                             <input type="number" id="config-meta-loja" min="50" max="100" step="0.1" onchange="saveMetaStore()">
                         </div>
-                        <p class="text-muted mt-10">A meta atual baliza os semáforos visuais do calendário corporativo e indicadores da Home.</p>
+                        <p class="text-muted mt-10">A meta atual baliza os semÃ¡foros visuais do calendÃ¡rio corporativo e indicadores da Home.</p>
                     </div>
                 </div>
 
                 <div class="card danger-zone mt-20">
-                    <h3><span class="icon" data-icon="save"></span> Backup e Manutenção do Banco de Dados</h3>
-                    <p class="text-muted mb-20">Gerencie a persistência local (LocalStorage) do AuditSort 38.</p>
+                    <h3><span class="icon" data-icon="save"></span> Backup e ManutenÃ§Ã£o do Banco de Dados</h3>
+                    <p class="text-muted mb-20">Gerencie a persistÃªncia local (LocalStorage) do AuditSort 38.</p>
                     <div class="backup-actions">
                         <button class="btn-secondary" onclick="downloadJSONBackup()"><span class="icon" data-icon="download"></span> Baixar Arquivo JSON de Backup</button>
                         <button class="btn-secondary" onclick="triggerImportFile()"><span class="icon" data-icon="upload"></span> Restaurar Banco de Dados via JSON</button>
                         <input type="file" id="file-import-json" accept=".json" class="hidden" onchange="importJSONBackup(event)">
-                        <button class="btn-danger" onclick="resetAllApplicationData()"><span class="icon" data-icon="trash"></span> Apagar Todo Histórico e Configurações</button>
+                        <button class="btn-danger" onclick="resetAllApplicationData()"><span class="icon" data-icon="trash"></span> Apagar Todo HistÃ³rico e ConfiguraÃ§Ãµes</button>
                     </div>
                 </div>
             </section>
