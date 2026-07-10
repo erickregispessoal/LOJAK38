@@ -1,5 +1,18 @@
-const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzNn1Wtw-S-sT5CkDHUqockBkqcuEqiN_Ci_879fQYSSlLXU42nxunOnKUknKx776L0tw/exec';
+const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzNj21I4pL3XWhDKH_Chdtwd-4W7VdHknUJOjWDhImqG1mVLQwp7qPjLCdKF3OKy5U2yQ/exec';
 const USAR_GOOGLE_SHEETS = true;
+
+// ====== SANITIZAÇÃO HTML (PREVENÇÃO XSS) ======
+function sanitizeHTML(str) {
+    if (str === null || str === undefined) return '';
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(String(str)));
+    return div.innerHTML;
+}
+
+function sanitizeAttr(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
 // ====== BIBLIOTECA DE ÍCONES (SVG) ======
 // Substitui os emojis por ícones vetoriais, herdando a cor do texto (currentColor).
@@ -53,47 +66,79 @@ function renderStaticIcons() {
         }
     });
 }
-// ====== LOGIN ======
-const USUARIO_CORRETO = 'GERENCIA38';
-const SENHA_CORRETA = '123456';
-
-function fazerLogin() {
+// ====== LOGIN (AUTENTICAÇÃO VIA GOOGLE APPS SCRIPT) ======
+async function fazerLogin() {
     const usuario = document.getElementById('login-usuario').value.trim();
     const senha = document.getElementById('login-senha').value.trim();
     const erroEl = document.getElementById('login-erro');
-    
-    if (usuario === USUARIO_CORRETO && senha === SENHA_CORRETA) {
-        // Login correto - esconder tela de login
-        document.getElementById('login-screen').classList.add('hidden');
-        document.querySelector('.app-container').style.display = 'flex';
-        
-        // Salvar sessão
-        localStorage.setItem('auditsort38_logado', 'true');
-        
-        showToast('Bem-vindo à Loja 38!');
-    } else {
-        // Login incorreto
+    const btnLogin = document.querySelector('.btn-login');
+
+    if (!usuario || !senha) {
+        erroEl.textContent = 'Preencha usuário e senha!';
         erroEl.classList.remove('hidden');
-        document.getElementById('login-senha').value = '';
-        
-        // Esconder erro após 3 segundos
-        setTimeout(() => {
-            erroEl.classList.add('hidden');
-        }, 3000);
+        setTimeout(() => erroEl.classList.add('hidden'), 3000);
+        return;
+    }
+
+    btnLogin.disabled = true;
+    btnLogin.textContent = 'Autenticando...';
+
+    try {
+        if (USAR_GOOGLE_SHEETS) {
+            const response = await fetch(GOOGLE_SHEETS_API_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: 'login', usuario: usuario, senha: senha })
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.querySelector('.app-container').style.display = 'flex';
+                localStorage.setItem('auditsort38_session', result.sessionToken || 'active');
+                localStorage.setItem('auditsort38_user', sanitizeAttr(usuario));
+                showToast('Bem-vindo à Loja 38!');
+            } else {
+                erroEl.textContent = 'Usuário ou senha inválidos!';
+                erroEl.classList.remove('hidden');
+                document.getElementById('login-senha').value = '';
+                setTimeout(() => erroEl.classList.add('hidden'), 3000);
+            }
+        } else {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.querySelector('.app-container').style.display = 'flex';
+            localStorage.setItem('auditsort38_session', 'local_active');
+            localStorage.setItem('auditsort38_user', sanitizeAttr(usuario));
+            showToast('Bem-vindo à Loja 38!');
+        }
+    } catch (error) {
+        console.error('Erro na autenticação:', error);
+        erroEl.textContent = 'Erro de conexão. Tente novamente.';
+        erroEl.classList.remove('hidden');
+        setTimeout(() => erroEl.classList.add('hidden'), 3000);
+    } finally {
+        btnLogin.disabled = false;
+        btnLogin.textContent = 'Entrar no Sistema';
     }
 }
 
-// Verificar se já está logado ao carregar a página
 function verificarLogin() {
-    const logado = localStorage.getItem('auditsort38_logado');
-    
-    if (logado === 'true') {
+    const session = localStorage.getItem('auditsort38_session');
+    if (session) {
         document.getElementById('login-screen').classList.add('hidden');
         document.querySelector('.app-container').style.display = 'flex';
     } else {
         document.getElementById('login-screen').classList.remove('hidden');
         document.querySelector('.app-container').style.display = 'none';
     }
+}
+
+function fazerLogout() {
+    localStorage.removeItem('auditsort38_session');
+    localStorage.removeItem('auditsort38_user');
+    document.getElementById('login-screen').classList.remove('hidden');
+    document.querySelector('.app-container').style.display = 'none';
+    document.getElementById('login-usuario').value = '';
+    document.getElementById('login-senha').value = '';
 }
 // Banco de dados
 let appData = JSON.parse(localStorage.getItem('auditsort38_v2_data')) || {
@@ -578,24 +623,43 @@ function renderHistoryTable() {
         
         tbody.innerHTML += `
             <tr>
-                <td><strong>${dataFmt}</strong> ${a.hora}</td>
-                <td>${a.setor}</td>
-                <td>${a.divisao}</td>
-                <td>${a.previstos}</td>
-                <td>${a.encontrados}<br><small class="text-muted">P:${a.picking ?? '-'} D:${a.deposito ?? '-'} AV:${a.areaVendas ?? '-'}</small></td>
-                <td>${a.naoEncontrados}</td>
-                <td class="${isAcima ? 'text-success' : 'text-danger'}" style="font-weight:700;">${a.conformidade}%</td>
-                <td class="text-danger">${a.ruptura}%</td>
-                <td>${a.auditor}</td>
+                <td><strong>${sanitizeHTML(dataFmt)}</strong> ${sanitizeHTML(a.hora)}</td>
+                <td>${sanitizeHTML(a.setor)}</td>
+                <td>${sanitizeHTML(a.divisao)}</td>
+                <td>${sanitizeHTML(String(a.previstos))}</td>
+                <td>${sanitizeHTML(String(a.encontrados))}<br><small class="text-muted">P:${sanitizeHTML(String(a.picking ?? '-'))} D:${sanitizeHTML(String(a.deposito ?? '-'))} AV:${sanitizeHTML(String(a.areaVendas ?? '-'))}</small></td>
+                <td>${sanitizeHTML(String(a.naoEncontrados))}</td>
+                <td class="${isAcima ? 'text-success' : 'text-danger'}" style="font-weight:700;">${sanitizeHTML(String(a.conformidade))}%</td>
+                <td class="text-danger">${sanitizeHTML(String(a.ruptura))}%</td>
+                <td>${sanitizeHTML(a.auditor)}</td>
                 <td>
-                    <button class="btn-secondary btn-sm" onclick="duplicateAuditItem('${a.id}')">Duplicar</button>
-                    <button class="btn-danger btn-sm" onclick="deleteAuditItem('${a.id}')">Excluir</button>
+                    <button class="btn-secondary btn-sm" onclick="duplicateAuditItem('${sanitizeAttr(a.id)}')">Duplicar</button>
+                    <button class="btn-danger btn-sm" onclick="deleteAuditItem('${sanitizeAttr(a.id)}')">Excluir</button>
                 </td>
             </tr>
         `;
     });
 }
 
+
+function duplicateAuditItem(id) {
+    const audit = appData.audits.find(a => a.id === id);
+    if (!audit) return;
+
+    navigate('nova-auditoria');
+
+    setTimeout(() => {
+        document.getElementById('form-setor').value = audit.setor;
+        document.getElementById('form-divisao').value = audit.divisao;
+        document.getElementById('form-previstos').value = audit.previstos;
+        document.getElementById('form-picking').value = audit.picking;
+        document.getElementById('form-deposito').value = audit.deposito;
+        document.getElementById('form-areavendas').value = audit.areaVendas;
+        document.getElementById('form-observacao').value = audit.observacao || '';
+        calculateFormMetrics();
+        showToast('Auditoria carregada para duplicação. Ajuste e salve.');
+    }, 100);
+}
 
 function deleteAuditItem(id) {
     // Criar modal de confirmação personalizado
