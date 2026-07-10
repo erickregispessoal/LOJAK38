@@ -1,7 +1,7 @@
-const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzNn1Wtw-S-sT5CkDHUqockBkqcuEqiN_Ci_879fQYSSlLXU42nxunOnKUknKx776L0tw/exec';
+﻿const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzNj21I4pL3XWhDKH_Chdtwd-4W7VdHknUJOjWDhImqG1mVLQwp7qPjLCdKF3OKy5U2yQ/exec';
 const USAR_GOOGLE_SHEETS = true;
 
-// ====== SANITIZAÇÃO HTML (PREVENÇÃO XSS) ======
+// ====== SANITIZAÃ‡ÃƒO HTML (PREVENÃ‡ÃƒO XSS) ======
 function sanitizeHTML(str) {
     if (str === null || str === undefined) return '';
     const div = document.createElement('div');
@@ -14,7 +14,7 @@ function sanitizeAttr(str) {
     return String(str).replace(/&/g,'&amp;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// ====== BIBLIOTECA DE ÍCONES (SVG) ======
+// ====== BIBLIOTECA DE ÃCONES (SVG) ======
 const ICONS = {
     user:          '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
     lock:          '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
@@ -64,7 +64,7 @@ function renderStaticIcons() {
     });
 }
 
-// ====== LOGIN (AUTENTICAÇÃO VIA GOOGLE APPS SCRIPT) ======
+// ====== LOGIN (AUTENTICAÃ‡ÃƒO VIA GOOGLE APPS SCRIPT) ======
 async function fazerLogin() {
     const usuario = document.getElementById('login-usuario').value.trim();
     const senha = document.getElementById('login-senha').value.trim();
@@ -72,7 +72,7 @@ async function fazerLogin() {
     const btnLogin = document.querySelector('.btn-login');
 
     if (!usuario || !senha) {
-        erroEl.textContent = 'Preencha usuário e senha!';
+        erroEl.textContent = 'Preencha usuÃ¡rio e senha!';
         erroEl.classList.remove('hidden');
         setTimeout(() => erroEl.classList.add('hidden'), 3000);
         return;
@@ -94,9 +94,9 @@ async function fazerLogin() {
                 document.querySelector('.app-container').style.display = 'flex';
                 localStorage.setItem('auditsort38_session', result.sessionToken || 'active');
                 localStorage.setItem('auditsort38_user', sanitizeAttr(usuario));
-                showToast('Bem-vindo à Loja 38!');
+                showToast('Bem-vindo Ã  Loja 38!');
             } else {
-                erroEl.textContent = 'Usuário ou senha inválidos!';
+                erroEl.textContent = 'UsuÃ¡rio ou senha invÃ¡lidos!';
                 erroEl.classList.remove('hidden');
                 document.getElementById('login-senha').value = '';
                 setTimeout(() => erroEl.classList.add('hidden'), 3000);
@@ -106,11 +106,11 @@ async function fazerLogin() {
             document.querySelector('.app-container').style.display = 'flex';
             localStorage.setItem('auditsort38_session', 'local_active');
             localStorage.setItem('auditsort38_user', sanitizeAttr(usuario));
-            showToast('Bem-vindo à Loja 38!');
+            showToast('Bem-vindo Ã  Loja 38!');
         }
     } catch (error) {
-        console.error('Erro na autenticação:', error);
-        erroEl.textContent = 'Erro de conexão. Tente novamente.';
+        console.error('Erro na autenticaÃ§Ã£o:', error);
+        erroEl.textContent = 'Erro de conexÃ£o. Tente novamente.';
         erroEl.classList.remove('hidden');
         setTimeout(() => erroEl.classList.add('hidden'), 3000);
     } finally {
@@ -143,8 +143,8 @@ function fazerLogout() {
 let appData = JSON.parse(localStorage.getItem('auditsort38_v2_data')) || {
     audits: [],
     config: {
-        auditores: ['Auditor Principal', 'Coordenação Loja 38', 'Auditor Setorial'],
-        setores: ['Mercearia', 'Frios e Laticínios', 'Hortifruti', 'Açougue e Peixaria', 'Bazar e Têxtil', 'Padaria'],
+        auditores: ['Auditor Principal', 'CoordenaÃ§Ã£o Loja 38', 'Auditor Setorial'],
+        setores: ['Mercearia', 'Frios e LaticÃ­nios', 'Hortifruti', 'AÃ§ougue e Peixaria', 'Bazar e TÃªxtil', 'Padaria'],
         metaLoja: 98.0
     }
 };
@@ -214,13 +214,13 @@ async function deletarDaPlanilha(id) {
     try {
         const response = await fetch(`${GOOGLE_SHEETS_API_URL}?action=delete&id=${encodeURIComponent(id)}`);
         const result = await response.json();
-        console.log('Excluído da planilha:', result);
+        console.log('ExcluÃ­do da planilha:', result);
     } catch (error) {
         console.error('Erro ao deletar:', error);
     }
 }
 
-// ====== RELÓGIO E SAUDAÇÃO ======
+// ====== RELÃ“GIO E SAUDAÃ‡ÃƒO ======
 function updateLiveClock() {
     const el = document.getElementById('current-date-time');
     if (el) el.innerText = new Date().toLocaleString('pt-BR');
@@ -233,7 +233,7 @@ function setAutomaticGreeting() {
     else if (hr >= 18) greet = 'Boa noite!';
     
     const el = document.getElementById('greeting');
-    if (el) el.innerText = `${greet} Gestão Loja 38.`;
+    if (el) el.innerText = `${greet} GestÃ£o Loja 38.`;
 }
 
 function resetFormDateTime() {
@@ -254,7 +254,7 @@ function showToast(msg, isDanger = false) {
     setTimeout(() => t.classList.add('hidden'), 3000);
 }
 
-// ====== UTILITÁRIO DE DATA ======
+// ====== UTILITÃRIO DE DATA ======
 function normalizarData(valor) {
     if (!valor) return '';
     const match = String(valor).match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -267,7 +267,7 @@ function formatarDataBR(valor) {
     return iso.split('-').reverse().join('/');
 }
 
-// ====== NAVEGAÇÃO ======
+// ====== NAVEGAÃ‡ÃƒO ======
 function navigate(pageId) {
     document.querySelectorAll('.page-section').forEach(sec => sec.classList.add('hidden'));
     
@@ -281,13 +281,13 @@ function navigate(pageId) {
     
     const titles = {
         'home': 'Home Hub - Loja 38',
-        'nova-auditoria': 'Lançamento de Auditoria',
+        'nova-auditoria': 'LanÃ§amento de Auditoria',
         'dashboard': 'Analytics & Dashboards',
-        'analises': 'Análises Inteligentes',
-        'calendario-view': 'Calendário Semafórico',
-        'historico': 'Histórico de Auditorias',
-        'relatorio-divisoes': 'Relatório de Divisões',
-        'configuracoes': 'Configurações'
+        'analises': 'AnÃ¡lises Inteligentes',
+        'calendario-view': 'CalendÃ¡rio SemafÃ³rico',
+        'historico': 'HistÃ³rico de Auditorias',
+        'relatorio-divisoes': 'RelatÃ³rio de DivisÃµes',
+        'configuracoes': 'ConfiguraÃ§Ãµes'
     };
     
     const titleEl = document.getElementById('page-title');
@@ -314,7 +314,7 @@ function navigate(pageId) {
     closeMobileSidebar();
 }
 
-// ====== MENU MOBILE (SIDEBAR RETRÁTIL) ======
+// ====== MENU MOBILE (SIDEBAR RETRÃTIL) ======
 function toggleMobileSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -351,7 +351,7 @@ function saveToLocalStorage() {
     updateGlobalMetrics();
 }
 
-// ====== CONFIGURAÇÕES ======
+// ====== CONFIGURAÃ‡Ã•ES ======
 function populateSelectOptions() {
     const fAuditor = document.getElementById('form-auditor');
     const fSetor = document.getElementById('form-setor');
@@ -402,7 +402,7 @@ function addConfigItem(key, inputId) {
         input.value = '';
         showToast('Adicionado com sucesso!');
     } else {
-        showToast('Item já existe!', true);
+        showToast('Item jÃ¡ existe!', true);
     }
 }
 
@@ -426,7 +426,7 @@ function saveMetaStore() {
     }
 }
 
-// ====== FORMULÁRIO DE AUDITORIA ======
+// ====== FORMULÃRIO DE AUDITORIA ======
 function calculateFormMetrics() {
     const previstos = parseInt(document.getElementById('form-previstos').value) || 0;
     const picking = parseInt(document.getElementById('form-picking').value) || 0;
@@ -443,7 +443,7 @@ function calculateFormMetrics() {
     }
     
     if (encontrados > previstos) {
-        infoBox.innerHTML = '<span class="text-danger">Soma de encontrados (Picking + Depósito + Área de Vendas) maior que previstos!</span>';
+        infoBox.innerHTML = '<span class="text-danger">Soma de encontrados (Picking + DepÃ³sito + Ãrea de Vendas) maior que previstos!</span>';
         return;
     }
     
@@ -454,9 +454,9 @@ function calculateFormMetrics() {
     const pctDeposito = ((deposito / previstos) * 100).toFixed(1);
     const pctAreaVendas = ((areaVendas / previstos) * 100).toFixed(1);
     
-    infoBox.innerHTML = `Não encontrados: <strong>${naoEncontrados}</strong><br>` +
+    infoBox.innerHTML = `NÃ£o encontrados: <strong>${naoEncontrados}</strong><br>` +
                         `Conformidade: <strong class="text-success">${confPerc}%</strong> | Ruptura: <strong class="text-danger">${rupPerc}%</strong><br>` +
-                        `Picking: <strong>${pctPicking}%</strong> | Depósito: <strong>${pctDeposito}%</strong> | Área de Vendas: <strong>${pctAreaVendas}%</strong>`;
+                        `Picking: <strong>${pctPicking}%</strong> | DepÃ³sito: <strong>${pctDeposito}%</strong> | Ãrea de Vendas: <strong>${pctAreaVendas}%</strong>`;
 }
 
 function clearAuditForm() {
@@ -478,11 +478,11 @@ document.getElementById('audit-form').addEventListener('submit', async function(
     const encontrados = picking + deposito + areaVendas;
     
     if (previstos <= 0) {
-        showToast('Itens previstos inválido!', true);
+        showToast('Itens previstos invÃ¡lido!', true);
         return;
     }
     if (encontrados > previstos) {
-        showToast('Soma de encontrados não pode superar previstos!', true);
+        showToast('Soma de encontrados nÃ£o pode superar previstos!', true);
         return;
     }
     
@@ -550,8 +550,8 @@ function updateGlobalMetrics() {
         const dataFmt = formatarDataBR(last.data);
         
         ultimaBox.innerHTML = `
-            <strong>Data:</strong> ${sanitizeHTML(dataFmt)} às ${sanitizeHTML(last.hora)}<br>
-            <strong>Setor/Divisão:</strong> ${sanitizeHTML(last.setor)} (${sanitizeHTML(last.divisao)})<br>
+            <strong>Data:</strong> ${sanitizeHTML(dataFmt)} Ã s ${sanitizeHTML(last.hora)}<br>
+            <strong>Setor/DivisÃ£o:</strong> ${sanitizeHTML(last.setor)} (${sanitizeHTML(last.divisao)})<br>
             <strong>Conformidade:</strong> <span class="${last.conformidade >= appData.config.metaLoja ? 'text-success' : 'text-danger'}">${sanitizeHTML(String(last.conformidade))}%</span><br>
             <strong>Auditor:</strong> ${sanitizeHTML(last.auditor)}<br>
             <small>${sincronizado ? icon('cloud') + ' Online' : icon('monitor') + ' Offline'}</small>
@@ -600,7 +600,7 @@ function renderHomeChart() {
     });
 }
 
-// ====== HISTÓRICO ======
+// ====== HISTÃ“RICO ======
 function renderHistoryTable() {
     const termo = document.getElementById('search-history')?.value.toLowerCase() || '';
     const tbody = document.getElementById('history-body');
@@ -661,7 +661,7 @@ function duplicateAuditItem(id) {
         document.getElementById('form-areavendas').value = audit.areaVendas;
         document.getElementById('form-observacao').value = audit.observacao || '';
         calculateFormMetrics();
-        showToast('Auditoria carregada para duplicação. Ajuste e salve.');
+        showToast('Auditoria carregada para duplicaÃ§Ã£o. Ajuste e salve.');
     }, 100);
 }
 
@@ -669,7 +669,7 @@ function deleteAuditItem(id) {
     const modalHTML = `
         <div id="confirm-modal" class="modal" style="display: flex;">
             <div class="modal-content" style="max-width: 400px; text-align: center;">
-                <h4 style="margin-bottom: 15px;">${icon('trash')} Confirmar Exclusão</h4>
+                <h4 style="margin-bottom: 15px;">${icon('trash')} Confirmar ExclusÃ£o</h4>
                 <p style="margin-bottom: 20px;">Tem certeza que deseja excluir este registro permanentemente?</p>
                 <div style="display: flex; gap: 10px; justify-content: center;">
                     <button class="btn-secondary" onclick="fecharConfirmModal()">Cancelar</button>
@@ -687,7 +687,7 @@ function deleteAuditItem(id) {
         saveToLocalStorage();
         await deletarDaPlanilha(id);
         renderHistoryTable();
-        showToast('Registro excluído com sucesso!', true);
+        showToast('Registro excluÃ­do com sucesso!', true);
     };
 }
 
@@ -849,7 +849,7 @@ function buildDashboardCharts(dados) {
     charts['dashTendencia'] = new Chart(document.getElementById('chartDashTendencia'), {
         type: 'line', data: {
             labels: d30.map(d => d.split('-').reverse().slice(0,2).join('/')),
-            datasets: [{ label: 'Tendência', data: d30.map(d => ((ag30[d].enc/ag30[d].prev)*100).toFixed(1)), borderColor: '#174A7C', borderDash: [5,5] }]
+            datasets: [{ label: 'TendÃªncia', data: d30.map(d => ((ag30[d].enc/ag30[d].prev)*100).toFixed(1)), borderColor: '#174A7C', borderDash: [5,5] }]
         },
         options: { scales: { y: { min: 0, max: 100 } } }
     });
@@ -865,7 +865,7 @@ function buildDashboardCharts(dados) {
     charts['dashLocalizacao'] = new Chart(document.getElementById('chartDashLocalizacao'), {
         type: 'doughnut',
         data: {
-            labels: ['Picking', 'Depósito', 'Área de Vendas', 'Não Encontrados'],
+            labels: ['Picking', 'DepÃ³sito', 'Ãrea de Vendas', 'NÃ£o Encontrados'],
             datasets: [{
                 data: [totalPicking, totalDeposito, totalAreaVendas, totalNaoEnc],
                 backgroundColor: ['#174A7C', '#2E75B6', '#28A745', '#DC3545']
@@ -888,7 +888,7 @@ function buildDashboardCharts(dados) {
     });
 }
 
-// ====== ANÁLISES ======
+// ====== ANÃLISES ======
 function generateSmartAnalysis() {
     const listEl = document.getElementById('insights-list');
     if (!listEl) return;
@@ -945,11 +945,11 @@ function generateSmartAnalysis() {
             <span class="insight-val text-danger">${valPior.toFixed(1)}%</span>
         </div>
         <div class="insight-item positive">
-            <span>${icon('award')} Melhor Divisão: <strong>${sanitizeHTML(melhorDiv)}</strong></span>
+            <span>${icon('award')} Melhor DivisÃ£o: <strong>${sanitizeHTML(melhorDiv)}</strong></span>
             <span class="insight-val text-success">${vMelhor.toFixed(1)}%</span>
         </div>
         <div class="insight-item negative">
-            <span>${icon('alertTriangle')} Pior Divisão: <strong>${sanitizeHTML(piorDiv)}</strong></span>
+            <span>${icon('alertTriangle')} Pior DivisÃ£o: <strong>${sanitizeHTML(piorDiv)}</strong></span>
             <span class="insight-val text-danger">${vPior.toFixed(1)}%</span>
         </div>
         <div class="insight-item neutral">
@@ -961,13 +961,13 @@ function generateSmartAnalysis() {
             <span class="insight-val">${diasAbaixo} dias</span>
         </div>
         <div class="insight-item neutral">
-            <span>${icon('barChart')} Média diária:</span>
+            <span>${icon('barChart')} MÃ©dia diÃ¡ria:</span>
             <span class="insight-val">${numDias > 0 ? (soma/numDias).toFixed(1) : '0.0'}%</span>
         </div>
     `;
 }
 
-// ====== CALENDÁRIO ======
+// ====== CALENDÃRIO ======
 function changeCalendarMonth(direction) {
     currentCalendarDate.setMonth(currentCalendarDate.getMonth() + direction);
     renderCalendar();
@@ -982,7 +982,7 @@ function renderCalendar() {
     const ano = currentCalendarDate.getFullYear();
     const mes = currentCalendarDate.getMonth();
     
-    const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    const mesesNomes = ["Janeiro", "Fevereiro", "MarÃ§o", "Abril", "Maio", "Junho",
         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     
     document.getElementById('calendar-month-year').innerText = `${mesesNomes[mes]} de ${ano}`;
@@ -1068,7 +1068,7 @@ window.onclick = function(event) {
     if (event.target === modal) closeCalendarModal();
 };
 
-// ====== RELATÓRIO DE DIVISÕES ======
+// ====== RELATÃ“RIO DE DIVISÃ•ES ======
 function populateReportSetorOptions() {
     const sel = document.getElementById('rel-setor');
     if (!sel) return;
@@ -1092,7 +1092,7 @@ function populateDivisaoFilterOptions() {
             .map(a => a.divisao)
     )].sort((a, b) => a.localeCompare(b));
 
-    selDivisao.innerHTML = '<option value="">Selecione uma Divisão</option>';
+    selDivisao.innerHTML = '<option value="">Selecione uma DivisÃ£o</option>';
     divisoes.forEach(d => selDivisao.innerHTML += `<option value="${sanitizeAttr(d)}">${sanitizeHTML(d)}</option>`);
 
     if (divisoes.includes(valorAtual)) selDivisao.value = valorAtual;
@@ -1127,8 +1127,8 @@ function gerarRelatorioDivisao() {
 
     if (subtitulo) {
         subtitulo.innerText = divisao
-            ? `Divisão: ${divisao}${setor ? ' | Setor: ' + setor : ''} — gerado em ${new Date().toLocaleDateString('pt-BR')}`
-            : `Todas as divisões${setor ? ' — Setor: ' + setor : ''} — gerado em ${new Date().toLocaleDateString('pt-BR')}`;
+            ? `DivisÃ£o: ${divisao}${setor ? ' | Setor: ' + setor : ''} â€” gerado em ${new Date().toLocaleDateString('pt-BR')}`
+            : `Todas as divisÃµes${setor ? ' â€” Setor: ' + setor : ''} â€” gerado em ${new Date().toLocaleDateString('pt-BR')}`;
     }
 
     if (dados.length === 0) {
@@ -1184,7 +1184,7 @@ function gerarRelatorioDivisao() {
     document.getElementById('rel-total-areavendas').innerText = tAreaVendas;
 }
 
-// ====== EXPORTAÇÃO CSV ======
+// ====== EXPORTAÃ‡ÃƒO CSV ======
 function exportToCSV() {
     if (appData.audits.length === 0) {
         showToast('Nenhum dado para exportar.', true);
@@ -1229,7 +1229,7 @@ function importJSONBackup(event) {
             const parsed = JSON.parse(e.target.result);
             if (parsed.config && parsed.audits) {
                 if (!Array.isArray(parsed.audits) || parsed.audits.length > 10000) {
-                    showToast('Arquivo inválido ou excessivamente grande!', true);
+                    showToast('Arquivo invÃ¡lido ou excessivamente grande!', true);
                     return;
                 }
                 appData = parsed;
@@ -1244,7 +1244,7 @@ function importJSONBackup(event) {
                 updateGlobalMetrics();
                 showToast('Restaurado com sucesso!');
             } else {
-                showToast('Arquivo inválido!', true);
+                showToast('Arquivo invÃ¡lido!', true);
             }
         } catch (err) {
             showToast('Erro ao ler arquivo.', true);
@@ -1257,8 +1257,8 @@ function resetAllApplicationData() {
     const modalHTML = `
         <div id="confirm-modal" class="modal" style="display: flex;">
             <div class="modal-content" style="max-width: 420px; text-align: center;">
-                <h4 style="margin-bottom: 15px;">${icon('alertTriangle')} Atenção: Ação Irreversível</h4>
-                <p style="margin-bottom: 20px;">Isso apagará <strong>TODOS</strong> os dados de auditorias e configurações. Essa ação não pode ser desfeita.</p>
+                <h4 style="margin-bottom: 15px;">${icon('alertTriangle')} AtenÃ§Ã£o: AÃ§Ã£o IrreversÃ­vel</h4>
+                <p style="margin-bottom: 20px;">Isso apagarÃ¡ <strong>TODOS</strong> os dados de auditorias e configuraÃ§Ãµes. Essa aÃ§Ã£o nÃ£o pode ser desfeita.</p>
                 <div style="display: flex; gap: 10px; justify-content: center;">
                     <button class="btn-secondary" onclick="fecharConfirmModal()">Cancelar</button>
                     <button class="btn-danger" id="btn-confirmar-reset">Sim, Apagar Tudo</button>
@@ -1277,8 +1277,8 @@ function resetAllApplicationData() {
         appData = {
             audits: [],
             config: {
-                auditores: ['Auditor Principal', 'Coordenação Loja 38', 'Auditor Setorial'],
-                setores: ['Mercearia', 'Frios e Laticínios', 'Hortifruti', 'Açougue e Peixaria', 'Bazar e Têxtil', 'Padaria'],
+                auditores: ['Auditor Principal', 'CoordenaÃ§Ã£o Loja 38', 'Auditor Setorial'],
+                setores: ['Mercearia', 'Frios e LaticÃ­nios', 'Hortifruti', 'AÃ§ougue e Peixaria', 'Bazar e TÃªxtil', 'Padaria'],
                 metaLoja: 98.0
             }
         };
