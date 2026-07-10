@@ -58,6 +58,7 @@
             </nav>
             <div class="sidebar-footer">
                 <button onclick="toggleDarkMode()" id="btn-theme-toggle"><span class="icon" data-icon="moon"></span> Modo Escuro</button>
+                <button onclick="fazerLogout()" id="btn-logout" style="margin-top:8px;"><span class="icon" data-icon="x"></span> Sair</button>
             </div>
         </aside>
         <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
@@ -143,7 +144,7 @@
                             </div>
                             <div class="input-group">
                                 <label>Divisão (Campo Livre)</label>
-                                <input type="text" id="form-divisao" placeholder="Ex: Cervejas, Sabão em pó, Iogurtes..." required>
+                                <input type="text" id="form-divisao" maxlength="100" placeholder="Ex: Cervejas, Sabão em pó, Iogurtes..." required>
                             </div>
                             <div class="input-group">
                                 <label>Total de Itens Previstos</label>
@@ -173,7 +174,7 @@
                         
                         <div class="input-group full-width">
                             <label>Observações Gerais da Auditoria</label>
-                            <textarea id="form-observacao" rows="3" placeholder="Descreva motivos de falhas gerais, atrasos ou anomalias encontradas..."></textarea>
+                            <textarea id="form-observacao" maxlength="500" rows="3" placeholder="Descreva motivos de falhas gerais, atrasos ou anomalias encontradas..."></textarea>
                         </div>
                         
                         <div class="form-actions">
@@ -287,7 +288,7 @@
                     <div class="calendar-legend">
                         <span class="legend-item"><span class="dot green"></span> Acima da Meta (≥ 98%)</span>
                         <span class="legend-item"><span class="dot yellow"></span> Alerta (96% - 97.9%)</span>
-                        <span class="legend-item"><span class="dot red"></span> Crítico (< 96%)</span>
+                        <span class="legend-item"><span class="dot red"></span> Crítico (&lt; 96%)</span>
                     </div>
 
                     <div class="calendar-grid">
@@ -492,4 +493,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+</html>
