@@ -1,4 +1,4 @@
-﻿const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzNj21I4pL3XWhDKH_Chdtwd-4W7VdHknUJOjWDhImqG1mVLQwp7qPjLCdKF3OKy5U2yQ/exec';
+const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzNj21I4pL3XWhDKH_Chdtwd-4W7VdHknUJOjWDhImqG1mVLQwp7qPjLCdKF3OKy5U2yQ/exec';
 const USAR_GOOGLE_SHEETS = true;
 
 // ====== SANITIZAÃ‡ÃƒO HTML (PREVENÃ‡ÃƒO XSS) ======
